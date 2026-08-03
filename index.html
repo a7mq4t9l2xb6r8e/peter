@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="HNI_0038.ico" type="image/x-icon">
+    <title>PETER.mp4 (2011)</title>
+    
+    <!-- Классический шрифт тех лет -->
+    <link href="https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #70b5f9 0%, #a8e063 100%);
+            background-attachment: fixed;
+            font-family: Tahoma, Arial, sans-serif;
+            color: #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .portal-window {
+            width: 740px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 12px 35px rgba(0, 50, 100, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            overflow: hidden;
+            margin: 20px;
+        }
+
+        .portal-header {
+            background: linear-gradient(to bottom, #3a8ee6 0%, #1a62bf 50%, #104fa3 51%, #1f75d6 100%);
+            color: #fff;
+            padding: 12px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #0d3c78;
+            text-shadow: 0 -1px 0 rgba(0,0,0,0.4);
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .portal-header .status-badge {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: normal;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #d8ffcc;
+        }
+
+        .tabs-panel {
+            background: #d8ebfc;
+            padding: 8px 15px 0 15px;
+            display: flex;
+            gap: 4px;
+            border-bottom: 1px solid #7cb5ec;
+        }
+
+        .tab-btn {
+            background: linear-gradient(to bottom, #f2f7fc 0%, #d3e5f7 100%);
+            border: 1px solid #9abce0;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+            padding: 6px 14px;
+            font-family: Tahoma, Arial, sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            color: #335577;
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+
+        .tab-btn:hover {
+            background: linear-gradient(to bottom, #ffffff 0%, #e2effa 100%);
+            color: #1a62bf;
+        }
+
+        .tab-btn.active {
+            background: #ffffff;
+            color: #0b396e;
+            border-bottom: 1px solid #ffffff;
+            padding-bottom: 7px;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+        }
+
+        .portal-body {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .tab-content {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tab-content.active {
+            display: flex;
+        }
+
+        .image-container {
+            background: #fff;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #bce0fb;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08), inset 0 0 5px rgba(0,100,200,0.05);
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .centered-image {
+            max-width: 620px;
+            max-height: 360px;
+            display: block;
+            border-radius: 3px;
+        }
+
+        .image-caption {
+            margin-top: 6px;
+            font-size: 11px;
+            color: #666;
+            text-align: center;
+        }
+
+        .slider-nav {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .links-panel {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .aero-btn {
+            display: block;
+            background: linear-gradient(to bottom, #ffffff 0%, #e2effa 50%, #cbe3fa 51%, #aed2f8 100%);
+            border: 1px solid #7cb5ec;
+            border-radius: 6px;
+            padding: 10px 15px;
+            color: #0b396e;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 13px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1), inset 0 1px 0 #ffffff;
+            cursor: pointer;
+            transition: all 0.1s ease;
+        }
+
+        .aero-btn:hover {
+            background: linear-gradient(to bottom, #ffffff 0%, #f0f7ff 50%, #dbeafb 51%, #bee0fc 100%);
+            border-color: #4a90e2;
+            color: #00204a;
+            box-shadow: 0 2px 6px rgba(0, 100, 200, 0.2), inset 0 1px 0 #ffffff;
+        }
+
+        .aero-btn:active {
+            background: linear-gradient(to bottom, #aed2f8 0%, #cbe3fa 51%, #e2effa 100%);
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .portal-footer {
+            margin-top: 20px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding-top: 12px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #555;
+        }
+
+        .counters {
+            display: flex;
+            gap: 5px;
+        }
+
+        .counter-box {
+            background: #fff;
+            border: 1px solid #bcd;
+            padding: 2px 5px;
+            font-family: monospace;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="portal-window">
+        <!-- Шапка -->
+        <div class="portal-header">
+            <span>🌐 ДвиЖУХу ПоРа ккАчАть ОНЛАЙКНГ ЗХЩШОЙАФКЗЩОДТЛШЙ </span>
+            <span class="status-badge">● Server status </span>
+        </div>
+
+        <!-- Вкладки: Фото-архив (слайдер) и Видео -->
+        <div class="tabs-panel">
+            <button class="tab-btn active" onclick="openTab(event, 'tab1')">🖼️ Photo's (NintendoDSi)</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab2')">▶ Video (Sony Handycam DCR-PC110E PAL) </button>
+        </div>
+
+        <div class="portal-body">
+            
+            <!-- Вкладка 1: Слайдер фотографий + ссылка на архив фоток в MediaFire -->
+            <div id="tab1" class="tab-content active">
+                <div class="image-container">
+                    <img id="slider-image" src="HNI_0027.JPG" alt="Photo's" class="centered-image" onerror="this.src='https://via.placeholder.com/620x360?text=Image+Not+Found'">
+                    <div id="image-caption" class="image-caption">HNI_0027.JPG — Photo 1 of 20 (2011)</div>
+                </div>
+
+                <div class="slider-nav">
+                    <button class="aero-btn" style="flex: 1;" onclick="prevImage()">◄ Previous</button>
+                    <button class="aero-btn" style="flex: 1;" onclick="nextImage()">Next ►</button>
+                </div>
+
+                <div class="links-panel">
+                    <a href="https://www.mediafire.com/folder/hsiovhtcbd7e6/PITER" target="_blank" class="aero-btn">
+                        📁 Photo's (MediaFire Server)
+                    </a>
+                </div>
+            </div>
+
+            <!-- Вкладка 2: Видео с ссылкой -->
+            <div id="tab2" class="tab-content">
+                <div class="links-panel" style="width: 100%; margin-top: 20px;">
+                    <a href="https://youtu.be/DcnPmp1RNjw" target="_blank" class="aero-btn">
+                        ▶ Video (YouTube / Link Git LFS)
+                    </a>
+                </div>
+            </div>
+
+            <!-- Подвал -->
+            <div class="portal-footer">
+                <div>© 2009 ugkog. All rights reserved. Сделано для ПРИиКоллА.</div>
+                <div class="counters">
+                    <span>Служба счёта:</span>
+                    <div class="counter-box">6 6 | 6 6</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Скрипты для табов и слайдера -->
+    <script>
+        const images = [];
+        for (let i = 27; i <= 46; i++) {
+            let num = i < 10 ? '0' + i : i;
+            images.push(`HNI_00${num}.JPG`);
+        }
+
+        let currentIndex = 0;
+
+        function updateSlider() {
+            const imgElement = document.getElementById('slider-image');
+            const captionElement = document.getElementById('image-caption');
+            let filename = images[currentIndex];
+            
+            imgElement.src = filename;
+            captionElement.innerText = `${filename} — Photo ${currentIndex + 1} of ${images.length} (2011)`;
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            updateSlider();
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            updateSlider();
+        }
+
+        function openTab(evt, tabName) {
+            let contents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < contents.length; i++) {
+                contents[i].classList.remove("active");
+            }
+            let buttons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
