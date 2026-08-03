@@ -112,7 +112,7 @@
             display: flex;
         }
 
-        .image-container {
+        .image-container, .player-container {
             background: #fff;
             padding: 8px;
             border-radius: 6px;
@@ -120,12 +120,32 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.08), inset 0 0 5px rgba(0,100,200,0.05);
             margin-bottom: 15px;
             position: relative;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .centered-image {
             max-width: 620px;
             max-height: 360px;
             display: block;
+            border-radius: 3px;
+        }
+
+        /* Контейнер для iframe от MEGA */
+        .mega-embed-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .mega-embed-wrapper iframe {
+            max-width: 100%;
+            height: 360px;
             border-radius: 3px;
         }
 
@@ -179,6 +199,86 @@
             box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
         }
 
+        /* Стили для модального окна выбора (Popup Dialog) */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(2px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-window {
+            width: 420px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #7cb5ec;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0, 40, 90, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            overflow: hidden;
+            animation: modalPop 0.15s ease-out;
+        }
+
+        @keyframes modalPop {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            background: linear-gradient(to bottom, #3a8ee6 0%, #1a62bf 50%, #104fa3 51%, #1f75d6 100%);
+            color: #fff;
+            padding: 8px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+            text-shadow: 0 -1px 0 rgba(0,0,0,0.4);
+        }
+
+        .modal-close {
+            background: #d83a3a;
+            color: #fff;
+            border: 1px solid #902222;
+            border-radius: 3px;
+            width: 18px;
+            height: 18px;
+            font-size: 11px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            background: #f04e4e;
+        }
+
+        .modal-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+        }
+
+        .modal-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #0b396e;
+            margin-bottom: 5px;
+        }
+
         .portal-footer {
             margin-top: 20px;
             border-top: 1px solid rgba(0,0,0,0.1);
@@ -211,23 +311,23 @@
     <div class="portal-window">
         <!-- Шапка -->
         <div class="portal-header">
-            <span>🌐 ДвиЖУХу ПоРа ккАчАть ОНЛАЙКНГ ЗХЩШОЙАФКЗЩОДТЛШЙ </span>
+            <span>🌐 ДвиЖУХu ПоРа ккАчАть ОНЛАЙКНГ ЗХЩШОЙАФКЗЩОДТЛШЙ </span>
             <span class="status-badge">● Server status </span>
         </div>
 
-        <!-- Вкладки: Фото-архив (слайдер) и Видео -->
+        <!-- Вкладки -->
         <div class="tabs-panel">
             <button class="tab-btn active" onclick="openTab(event, 'tab1')">🖼️ Photo's (NintendoDSi)</button>
-            <button class="tab-btn" onclick="openTab(event, 'tab2')">▶ Video (Sony Handycam DCR-PC110E PAL) </button>
+            <button class="tab-btn" onclick="openTab(event, 'tab2')">▶ Video (Sony Handycam DCR-PC110E PAL)</button>
         </div>
 
         <div class="portal-body">
             
-            <!-- Вкладка 1: Слайдер фотографий + ссылка на архив фоток в MediaFire -->
+            <!-- Вкладка 1: Слайдер фотографий (0028 - 0046) + MediaFire -->
             <div id="tab1" class="tab-content active">
                 <div class="image-container">
-                    <img id="slider-image" src="HNI_0027.JPG" alt="Photo's" class="centered-image" onerror="this.src='https://via.placeholder.com/620x360?text=Image+Not+Found'">
-                    <div id="image-caption" class="image-caption">HNI_0027.JPG — Photo 1 of 20 (2011)</div>
+                    <img id="slider-image" src="HNI_0028.JPG" alt="Photo's" class="centered-image" onerror="this.src='https://via.placeholder.com/620x360?text=Image+Not+Found'">
+                    <div id="image-caption" class="image-caption">HNI_0028.JPG — Photo 1 of 19 (2011)</div>
                 </div>
 
                 <div class="slider-nav">
@@ -242,12 +342,19 @@
                 </div>
             </div>
 
-            <!-- Вкладка 2: Видео с ссылкой -->
+            <!-- Вкладка 2: Встроенный плеер MEGA + Кнопка открытия диалогового окна -->
             <div id="tab2" class="tab-content">
-                <div class="links-panel" style="width: 100%; margin-top: 20px;">
-                    <a href="https://youtu.be/DcnPmp1RNjw" target="_blank" class="aero-btn">
-                        ▶ Video (YouTube / Link Git LFS)
-                    </a>
+                <div class="player-container">
+                    <div class="mega-embed-wrapper">
+                        <iframe width="640" height="360" frameborder="0" src="https://mega.nz/embed/r0YS2YqC#fQT-g-HeTHxVatLe39bfTE9rCcmoif7WqTSi0mBi60c" allowfullscreen></iframe>
+                    </div>
+                    <div class="image-caption">Video playback (Sony Handycam)</div>
+                </div>
+
+                <div class="links-panel">
+                    <button class="aero-btn" onclick="openModal()">
+                        🌐 Choose Video Source / Download options...
+                    </button>
                 </div>
             </div>
 
@@ -263,10 +370,32 @@
         </div>
     </div>
 
-    <!-- Скрипты для табов и слайдера -->
+    <!-- Модальное окно (Popup Dialog в стиле Aero) -->
+    <div id="sourceModal" class="modal-overlay" onclick="outsideClose(event)">
+        <div class="modal-window">
+            <div class="modal-header">
+                <span>Video Source Selector</span>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-title">Select preferred playback source or download:</div>
+                
+                <a href="https://youtu.be/DcnPmp1RNjw" target="_blank" class="aero-btn">
+                    ▶ YouTube (Mirror)
+                </a>
+                
+                <a href="https://mega.nz/file/r0YS2YqC#fQT-g-HeTHxVatLe39bfTE9rCcmoif7WqTSi0mBi60c" target="_blank" class="aero-btn" download>
+                    📥 Download (MEGA.nz)
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Скрипты -->
     <script>
+        // Массив строго от 28 до 46 включительно (19 штук)
         const images = [];
-        for (let i = 27; i <= 46; i++) {
+        for (let i = 28; i <= 46; i++) {
             let num = i < 10 ? '0' + i : i;
             images.push(`HNI_00${num}.JPG`);
         }
@@ -303,6 +432,21 @@
             }
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
+        }
+
+        // Управление модальным окном
+        function openModal() {
+            document.getElementById('sourceModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('sourceModal').classList.remove('active');
+        }
+
+        function outsideClose(event) {
+            if (event.target.id === 'sourceModal') {
+                closeModal();
+            }
         }
     </script>
 </body>
